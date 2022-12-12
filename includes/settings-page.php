@@ -19,18 +19,14 @@ function keybe_settings_chat_init() {
 add_action( 'admin_init', 'keybe_settings_chat_init' );
 
 function keybe_chat_settings_section_callback(  ) {
-  echo __( 'Keybe Widget Chat settings', 'keybe-plugin-chat' );
-  echo '<br>';
-  echo __( 'You can find your API keys in your Keybe account', 'keybe-plugin-chat' );
-  echo '<br>';
-  echo __( 'This plugin will add the chat widget in your site', 'keybe-plugin-chat' );
-  echo '<br>';
-  echo __( 'If you have trouble setting up the plugin watch our tutorial <a href="https://youtube.com" target="_blank">here!</a>', 'keybe-plugin-chat' );
+  echo __( '<p><strong>Keybe Widget Chat settings</strong></p>', 'keybe-plugin-chat' );
+  echo __( '<p class="description">You can find your API keys in your Keybe account <strong><a href="https://keybe.app/admin/configurations/app" target="_blank">here!</a></strong>. <br>The plugin will add the chat widget in your site.</p>', 'keybe-plugin-chat' );
+  echo __( '<p>If you have trouble setting up the plugin watch our tutorial <a href="https://youtube.com" target="_blank">here!</a></p>', 'keybe-plugin-chat' );
 }
 
 function keybe_api_key_chat(){
   $options = get_option( 'keybe_settings_chat' ); ?>
-  <input type='text' name='keybe_settings_chat[keybe_api_key_chat]' value='<?php echo $options["keybe_api_key_chat"]; ?>'> <?php
+  <input type='text' class="regular-text" name='keybe_settings_chat[keybe_api_key_chat]' value='<?php echo $options["keybe_api_key_chat"]; ?>'> <?php
 }
 
 function keybe_plugin_chat_function(){ ?>
