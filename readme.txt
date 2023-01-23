@@ -1,11 +1,11 @@
 # Keybe Widget Chat
 Contributors: TodoViernes
 Tags: chat, omnichannel, whatsapp, keybe, sales
-Requires at least: 3.7
-Tested up to: 6.0
+Requires at least: 5.0
+Tested up to: 6.1
 Stable tag: 0.1
 License: GPLv2 or later
-Requires PHP: 5.6
+Requires PHP: 7.3
 
 Keybe widget chat is a tool to embed chat on webpage.
 
