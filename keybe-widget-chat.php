@@ -17,25 +17,34 @@ defined('ABSPATH') || exit;
 
 include 'includes/settings-page.php';
 
+// Get settings from settings page settings from settings page
+$options = get_option('keybe_settings_chat');
+$keybe_api_key_chat = $options['keybe_api_key_chat'];
 
-
-function keybe_widget_chat_script()
-{
-  $options = get_option('keybe_settings_chat'); // Get settings from settings page settings from settings page
-  if ($options['keybe_api_key_chat']) :
-?>
-
-    <script src="https://storage.kbe.ai/keybejs/latest/keybe.js"></script>
-    <script>
-      window.addEventListener('load', function() {
-        var configChat = {
-          apiKey: '<?php echo $options['keybe_api_key_chat']; ?>',
-        }
-        window.keybe.webchatConversationsUiLoad(configChat)
-      })
-    </script>
-<?php
-  endif;
+if($keybe_api_key_chat){
+  function my_plugin_inline_script() {
+    // Register the external script with the desired attributes
+    $script_attributes = array(
+        'async' => true,
+        'nonce' => wp_create_nonce('keybe_chat_script_nonce'),
+        'type' => 'module',
+    );
+    wp_register_script( 'keybe-chat-script', 'https://storage.kbe.ai/keybejs/latest/keybe.js', array(), '', true, $script_attributes );
+    //Enqueue the external script
+    wp_enqueue_script( 'keybe-chat-script' );
+    // get the api key from the options table
+    $options = get_option('keybe_settings_chat');
+    $keybe_api_key_chat = $options['keybe_api_key_chat'];
+    // create the inline script
+    $script = '
+        window.addEventListener("load", function() {
+            var configChat = {
+                apiKey: "'.$keybe_api_key_chat.'",
+            }
+            window.keybe.webchatConversationsUiLoad(configChat)
+        });';
+    // enqueue the inline script after the external script
+    wp_add_inline_script( 'keybe-chat-script', $script, 'after' );
+  }
+  add_action( 'wp_enqueue_scripts', 'my_plugin_inline_script' );
 }
-
-add_action('wp_footer', 'keybe_widget_chat_script');
