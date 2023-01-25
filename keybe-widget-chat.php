@@ -22,7 +22,7 @@ $options = get_option('keybe_settings_chat');
 $keybe_api_key_chat = $options['keybe_api_key_chat'];
 
 if($keybe_api_key_chat){
-  function my_plugin_inline_script() {
+  function keybe_widget_chat_script_tag() {
     // Register the external script with the desired attributes
     $script_attributes = array(
         'async' => true,
@@ -46,5 +46,5 @@ if($keybe_api_key_chat){
     // enqueue the inline script after the external script
     wp_add_inline_script( 'keybe-chat-script', $script, 'after' );
   }
-  add_action( 'wp_enqueue_scripts', 'my_plugin_inline_script' );
+  add_action( 'wp_enqueue_scripts', 'keybe_widget_chat_script_tag' );
 }
